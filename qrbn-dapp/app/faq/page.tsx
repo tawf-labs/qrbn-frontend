@@ -7,15 +7,10 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { 
   HelpCircle, 
-  Wallet, 
-  Coins, 
-  Shield, 
   BookOpen, 
   Users, 
-  TrendingUp, 
   Utensils,
   ExternalLink,
-  Heart,
   Building
 } from "lucide-react"
 
@@ -30,146 +25,42 @@ const faqData: FAQItem[] = [
   // Getting Started
   {
     id: "what-is-qrbn",
-    question: "What is QRBN.app?",
-    answer: "QRBN.app is TAWF Foundation's blockchain platform for transparent Qurban offerings and Waqf contributions to sustainable Qurban farms. We use smart contracts to ensure full transparency and Shariah compliance in supporting ethical livestock farming and community impact.",
+    question: "What is Tawf Qurban?",
+    answer: "Tawf Qurban is Tawf Foundation's blockchain-based qurban project. You choose a goat, a sheep or a share of a cow. It is a preview and is not taking payments yet.",
     category: "Getting Started"
   },
   {
     id: "how-to-connect-wallet",
     question: "How do I connect my wallet?",
-    answer: "Click the 'Connect Wallet' button in the top navigation. We support MetaMask, WalletConnect, and other popular Web3 wallets. Make sure you're connected to the Lisk Sepolia network to interact with our smart contracts.",
+    answer: "Click the 'Connect' button in the top navigation. We support MetaMask, WalletConnect, and other popular Web3 wallets. Make sure you're connected to the Lisk Sepolia network to interact with our smart contracts.",
     category: "Getting Started"
   },
   {
     id: "supported-networks",
     question: "Which blockchain networks are supported?",
-    answer: "Currently, QRBN.app operates on the Lisk Sepolia network for lower gas fees and faster transactions. We're considering expanding to other networks based on community feedback.",
+    answer: "Tawf Qurban was built on the Lisk Sepolia test network. It is a preview and is not taking payments yet.",
     category: "Getting Started"
-  },
-
-  // Waqf
-  {
-    id: "what-is-waqf",
-    question: "What is Waqf for Kurban Farms?",
-    answer: "Waqf is an Islamic endowment where assets are permanently dedicated for charitable purposes. On QRBN, your waqf contribution supports verified kurban farms, helping farmers raise quality animals for qurban sacrifices while creating sustainable livelihoods and community impact.",
-    category: "Waqf"
-  },
-  {
-    id: "how-waqf-works",
-    question: "How does Waqf for farms work on QRBN?",
-    answer: "You can browse verified farms and contribute directly to the ones you trust. Farms undergo off-chain pre-verification, then on-chain verification by DAO and Sharia Council. Your contribution helps farmers with operations, animal raising, and infrastructure. You receive an NFT certificate as proof of your waqf.",
-    category: "Waqf"
-  },
-  {
-    id: "waqf-fees-explained",
-    question: "What are the fees for Waqf contributions and are they Shariah compliant?",
-    answer: "Yes, all fees are Shariah compliant and transparently disclosed. There are two types: (1) Nazhir Management Fee (5-10%) for farm operations, coordination, reporting - this follows Indonesian Islamic finance regulations where nazhir (waqf manager) can receive up to 20% based on role complexity. (2) Service Fees (~$6 USDT) for platform tech, verification, NFT certificates, and monitoring. All fees are clearly separated from the waqf corpus per Islamic principles.",
-    category: "Waqf"
-  },
-  {
-    id: "waqf-nazhir-fee",
-    question: "What is the Nazhir fee and why is it charged?",
-    answer: "The Nazhir is the waqf manager who maintains and operates the endowment. In Indonesian Islamic finance regulation, nazhir fees of 5-10% (up to 20% for complex roles) are explicitly allowed in classical and modern fiqh. This fee covers: acting as fiduciary manager, operating the farm, coordinating slaughter and distribution, reporting and auditing, and administrative overhead.",
-    category: "Waqf"
-  },
-  {
-    id: "platform-revenue-waqf",
-    question: "How does QRBN make money if waqf is a permanent endowment?",
-    answer: "Very important: QRBN earns revenue from activities OUTSIDE the waqf corpus. These include: marketplace fees from qurban buyers (separate from waqf), premium verification services for farms, corporate qurban programs, data and reporting services, and future sukuk structuring. Platform revenue is completely separate from waqf contributions and does not affect the endowment.",
-    category: "Waqf"
-  },
-  {
-    id: "waqf-farm-verification",
-    question: "How are farms verified for waqf eligibility?",
-    answer: "Farms go through a multi-stage process: (1) Pre-verification - Farmers submit applications with documentation, undergoing initial off-chain screening. (2) Off-chain Verification - Platform team verifies credentials, certifications, and track record. (3) On-chain Verification - DAO and Sharia Council approve the farm on blockchain. (4) Active Recipient Status - Farm becomes eligible to receive waqf contributions with full transparency.",
-    category: "Waqf"
   },
 
   // Qurban
   {
     id: "what-is-qurban",
     question: "What is Qurban and how does the digital system work?",
-    answer: "Qurban is the ritual sacrifice performed during Eid al-Adha. Our platform allows you to contribute to collective Qurban offerings through smart contracts. We partner with certified facilities to perform the actual sacrifice, and you receive an NFT certificate as proof of your participation.",
-    category: "Qurban"
-  },
-  {
-    id: "qurban-packages",
-    question: "What Qurban packages are available?",
-    answer: "We offer three tiers: Economic (goat/sheep shares), Standard (individual goat/sheep), and Premium (cow/camel shares). Each package includes different benefits and NFT certificates. All animals meet Islamic requirements and are sourced from ethical suppliers.",
+    answer: "Qurban is the ritual sacrifice performed during Eid al-Adha. Tawf Qurban is designed to record each qurban through smart contracts, with an NFT certificate as proof of your participation.",
     category: "Qurban"
   },
   {
     id: "nft-certificate",
     question: "What is the NFT certificate and why do I receive it?",
-    answer: "The NFT certificate serves as permanent, immutable proof of your Qurban participation. It contains details about the sacrifice, location, date, and Islamic compliance verification. This digital certificate can be stored in your wallet forever as a record of your religious observance.",
+    answer: "The NFT certificate serves as permanent, immutable proof of your Qurban participation. It contains details about the sacrifice, location, and date. This digital certificate can be stored in your wallet forever as a record of your religious observance.",
     category: "Qurban"
-  },
-
-  // Tokens & Rewards
-  {
-    id: "qrbn-token",
-    question: "What is the QRBN token?",
-    answer: "QRBN is our platform's governance and reward token. You earn QRBN tokens for donations, which can be used for DAO voting, accessing premium features, or staking for additional rewards. Tokens are automatically distributed to your wallet after confirmed donations.",
-    category: "Tokens & Rewards"
-  },
-  {
-    id: "earning-tokens",
-    question: "How do I earn QRBN tokens?",
-    answer: "You earn QRBN tokens by: making Waqf contributions (1 QRBN per 1 USDT), participating in Qurban offerings, referring new users, participating in DAO governance, and completing certain platform milestones.",
-    category: "Tokens & Rewards"
-  },
-  {
-    id: "token-utility",
-    question: "What can I do with QRBN tokens?",
-    answer: "QRBN tokens can be used for: voting in DAO governance, staking for rewards, accessing premium dashboard features, getting discounts on platform fees, and participating in special community events and airdrops.",
-    category: "Tokens & Rewards"
-  },
-
-  // DAO & Governance
-  {
-    id: "dao-governance",
-    question: "What is the QRBN DAO and how can I participate?",
-    answer: "The QRBN DAO is our decentralized governance system where token holders vote on platform decisions. You can participate by holding QRBN tokens, voting on proposals, or becoming a representative (Community, Organizational, or Sharia representative roles available).",
-    category: "DAO & Governance"
-  },
-  {
-    id: "become-representative",
-    question: "How can I become a DAO representative?",
-    answer: "There are three types: Community Representative (requires 1,000+ QRBN tokens and Qurban participation), Organizational Representative (requires 5,000+ QRBN tokens and institutional backing), and Sharia Representative (requires Islamic scholarship credentials and community verification).",
-    category: "DAO & Governance"
-  },
-  {
-    id: "voting-power",
-    question: "How is voting power determined?",
-    answer: "Voting power is proportional to your QRBN token holdings, with additional weight given to long-term stakers and active community participants. Representatives have enhanced voting power in their respective domains.",
-    category: "DAO & Governance"
-  },
-
-  // Security & Trust
-  {
-    id: "smart-contract-security",
-    question: "How secure are the smart contracts?",
-    answer: "Our smart contracts are audited by leading blockchain security firms and follow industry best practices. All contract code is open-source and verifiable on-chain. We use multi-signature wallets for admin functions and have emergency pause mechanisms.",
-    category: "Security & Trust"
-  },
-  {
-    id: "fund-transparency",
-    question: "How can I verify that my donations reach the intended recipients?",
-    answer: "All transactions are recorded on the blockchain and can be verified through our transparency dashboard. We provide detailed reports showing fund distribution, recipient verification, and impact metrics. Partner organizations also provide periodic updates.",
-    category: "Security & Trust"
-  },
-  {
-    id: "islamic-compliance",
-    question: "How do you ensure Islamic compliance?",
-    answer: "We have a Sharia advisory board that reviews all platform mechanisms. Our smart contracts are designed to comply with Islamic finance principles, avoiding interest (riba), excessive uncertainty (gharar), and gambling (maysir). All processes are regularly audited for compliance.",
-    category: "Security & Trust"
   },
 
   // Technical Support
   {
     id: "transaction-failed",
     question: "What should I do if my transaction fails?",
-    answer: "First, check if you have sufficient USDT and ETH/MATIC for gas fees. Ensure you're on the correct network (Lisk Sepolia). If the issue persists, try increasing gas fees or contact our support team with the transaction hash for assistance.",
+    answer: "First, check if you have sufficient USDT and ETH for gas fees. Ensure you're on the correct network (Lisk Sepolia). If the issue persists, try increasing gas fees or contact our support team with the transaction hash for assistance.",
     category: "Technical Support"
   },
   {
@@ -180,8 +71,8 @@ const faqData: FAQItem[] = [
   },
   {
     id: "missing-tokens",
-    question: "My QRBN tokens or NFTs are not showing in my wallet",
-    answer: "You may need to manually add the token contract addresses to your wallet. QRBN token and NFT contract addresses can be found in our documentation. For MetaMask, go to 'Import Tokens' and enter the contract address.",
+    question: "My NFT certificate is not showing in my wallet",
+    answer: "Check that you are connected to the Lisk Sepolia network and to the wallet you used. Some wallets need the NFT contract added manually through their import option.",
     category: "Technical Support"
   }
 ]
@@ -190,11 +81,7 @@ const categories = Array.from(new Set(faqData.map(item => item.category)))
 
 const categoryIcons: Record<string, React.ReactNode> = {
   "Getting Started": <HelpCircle className="h-5 w-5" />,
-  "Waqf": <Heart className="h-5 w-5" />,
   "Qurban": <Utensils className="h-5 w-5" />,
-  "Tokens & Rewards": <Coins className="h-5 w-5" />,
-  "DAO & Governance": <Users className="h-5 w-5" />,
-  "Security & Trust": <Shield className="h-5 w-5" />,
   "Technical Support": <Building className="h-5 w-5" />
 }
 
@@ -211,9 +98,8 @@ export default function FAQPage() {
         {/* Header Section */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-heading font-medium text-tawf-green mb-4">Frequently Asked Questions</h1>
-          <p className="text-tawf-muted max-w-2xl mx-auto">
-            Everything you need to know about QRBN.app for Qurban and Waqf contributions, 
-            DAO governance, and blockchain-based religious observance.
+          <p className="text-tawf-body max-w-2xl mx-auto">
+            Everything you need to know about Tawf Qurban. Tawf Qurban is a preview and is not taking payments yet.
           </p>
         </div>
 
@@ -221,7 +107,7 @@ export default function FAQPage() {
         <Card className="bg-white border-tawf-green/10 rounded-2xl mb-8">
           <CardHeader>
             <CardTitle className="text-tawf-green font-heading flex items-center gap-2">
-              <BookOpen className="h-5 w-5 text-tawf-gold" />
+              <BookOpen className="h-5 w-5 text-tawf-honey" />
               Browse by Category
             </CardTitle>
           </CardHeader>
@@ -231,7 +117,7 @@ export default function FAQPage() {
                 variant={selectedCategory === null ? "default" : "secondary"}
                 className={`cursor-pointer transition-colors rounded-full ${
                   selectedCategory === null 
-                    ? "bg-tawf-gold text-white hover:bg-tawf-gold/90" 
+                    ? "bg-tawf-honey text-white hover:bg-tawf-honey/90" 
                     : "bg-tawf-sand/50 text-tawf-ink hover:bg-tawf-sand"
                 }`}
                 onClick={() => setSelectedCategory(null)}
@@ -244,7 +130,7 @@ export default function FAQPage() {
                   variant={selectedCategory === category ? "default" : "secondary"}
                   className={`cursor-pointer transition-colors flex items-center gap-1 rounded-full ${
                     selectedCategory === category 
-                      ? "bg-tawf-gold text-white hover:bg-tawf-gold/90" 
+                      ? "bg-tawf-honey text-white hover:bg-tawf-honey/90" 
                       : "bg-tawf-sand/50 text-tawf-ink hover:bg-tawf-sand"
                   }`}
                   onClick={() => setSelectedCategory(category)}
@@ -267,7 +153,7 @@ export default function FAQPage() {
                   value={faq.id}
                   className="border-tawf-green/10 bg-tawf-sand/30 rounded-xl px-4"
                 >
-                  <AccordionTrigger className="text-tawf-ink hover:text-tawf-gold text-left">
+                  <AccordionTrigger className="text-tawf-ink hover:text-tawf-honey text-left">
                     <div className="flex items-start gap-3">
                       <Badge variant="outline" className="bg-tawf-green/10 text-tawf-green border-tawf-green/20 shrink-0 rounded-full">
                         {faq.category}
@@ -275,7 +161,7 @@ export default function FAQPage() {
                       <span>{faq.question}</span>
                     </div>
                   </AccordionTrigger>
-                  <AccordionContent className="text-tawf-muted pt-4 pl-16">
+                  <AccordionContent className="text-tawf-body pt-4 pl-16">
                     {faq.answer}
                   </AccordionContent>
                 </AccordionItem>
@@ -289,7 +175,7 @@ export default function FAQPage() {
         {/* Additional Help Section */}
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-heading font-medium text-tawf-green mb-4">Still Need Help?</h2>
-          <p className="text-tawf-muted mb-6">
+          <p className="text-tawf-body mb-6">
             Can't find the answer you're looking for? Get in touch with our support team.
           </p>
 
@@ -297,15 +183,15 @@ export default function FAQPage() {
             <Card className="bg-white border-tawf-green/10 rounded-2xl hover:shadow-lg transition-shadow">
               <CardContent className="p-6 text-center">
                 <div className="w-12 h-12 bg-tawf-gold/10 rounded-xl flex items-center justify-center mx-auto mb-3">
-                  <BookOpen className="h-6 w-6 text-tawf-gold" />
+                  <BookOpen className="h-6 w-6 text-tawf-honey" />
                 </div>
                 <h3 className="text-tawf-green font-heading font-semibold mb-2">Documentation</h3>
-                <p className="text-tawf-muted text-sm mb-4">
+                <p className="text-tawf-body text-sm mb-4">
                   Comprehensive guides and technical documentation
                 </p>
                 <button 
                   onClick={() => window.open("/docs", "_blank")}
-                  className="inline-flex items-center gap-2 text-tawf-gold hover:text-tawf-gold/80 text-sm font-medium"
+                  className="inline-flex items-center gap-2 text-tawf-honey hover:text-tawf-honey/80 text-sm font-medium"
                 >
                   View Docs <ExternalLink className="h-3 w-3" />
                 </button>
@@ -318,12 +204,12 @@ export default function FAQPage() {
                   <Users className="h-6 w-6 text-tawf-green" />
                 </div>
                 <h3 className="text-tawf-green font-heading font-semibold mb-2">Community Support</h3>
-                <p className="text-tawf-muted text-sm mb-4">
+                <p className="text-tawf-body text-sm mb-4">
                   Join our Discord community for help and discussions
                 </p>
                 <button 
                   onClick={() => window.open("https://discord.gg/UGzzJ8aR4x", "_blank")}
-                  className="inline-flex items-center gap-2 text-tawf-gold hover:text-tawf-gold/80 text-sm font-medium"
+                  className="inline-flex items-center gap-2 text-tawf-honey hover:text-tawf-honey/80 text-sm font-medium"
                 >
                   Join Discord <ExternalLink className="h-3 w-3" />
                 </button>

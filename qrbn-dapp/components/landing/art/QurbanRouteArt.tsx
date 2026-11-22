@@ -4,22 +4,25 @@ import React, { useRef } from 'react';
 import { motion, useReducedMotion } from 'motion/react';
 import { IsoBox, FlowLine, FILLS, PAL, isoAt, draw, drop, fade, pop, useInViewLoop, useLoopClock, type Pt } from '../../motion';
 import Coin from './Coin';
+import { Cow, Goat, Sheep } from './animals';
+import { GRASS, Tuft } from './PastureArt';
 
-/* One qurban's route: five iso blocks on one drawn path (Choose, Pay, Sacrifice, Distribute, Proof).
+/* One qurban's route: a goat, a sheep and a cow on a pasture (Choose), then iso blocks on one drawn path
+ * (Pay, Sacrifice, Distribute, Proof).
  * Everything derives from the floor frame (O, u up-right, v down-right): block centres are floor points, the path
  * is drawn on the floor through them, and the bead rides the same polyline, so lines really land on blocks.
  * Intro about 2.7s (grid, path draws, blocks drop on the hero spring), then a calm loop: a coin travels the route
  * and each block lights as it arrives; the last one carries a proof tick. Loops pause offscreen; under reduced
- * motion everything is visible, lit and still. Text is 16.5 units in a 476 wide view, so about 11px on a phone. */
+ * motion everything is visible, lit and still. Text is 19.5 units in a 580 wide view, so about 11px on a phone. */
 const IDLE = 2.8;
 const A = 46;                       // block footprint (square), floor units
-const STEP = 110;                   // floor distance between block centres
+const STEP = 94;                    // floor distance between block centres
 const O = { x: 58, y: 186 };        // floor origin = centre of the first block
 const floorXY = (u: number, v: number): Pt => isoAt(O.x, O.y, u, v);
 const iso = `matrix(.86604 -.49997 .86604 .49997 ${O.x} ${O.y})`;
 
 const NODES: { u: number; v: number; label: string; h: number }[] = [
-  { u: 0, v: 0, label: 'Choose', h: 24 },
+  { u: 0, v: 0, label: 'Choose', h: 12 },
   { u: STEP, v: 0, label: 'Pay', h: 30 },
   { u: STEP, v: STEP, label: 'Sacrifice', h: 40 },
   { u: 2 * STEP, v: STEP, label: 'Distribute', h: 30 },
@@ -28,7 +31,7 @@ const NODES: { u: number; v: number; label: string; h: number }[] = [
 const ROUTE: Pt[] = NODES.map((n) => [n.u, n.v]);
 const PATH_D = `M${ROUTE.map((p) => p.join(' ')).join(' L')}`;
 const SCREEN: Pt[] = ROUTE.map(([u, v]) => floorXY(u, v));
-const UNLIT: [string, string, string] = ['#CED8D1', '#B8C7BE', '#FBFCFA'];
+const UNLIT: [string, string, string] = ['#A9BCB1', '#95AB9F', '#EAF0EC'];
 const LIT: [string, string, string][] = [
   [...FILLS.zakat], [...FILLS.zakat], [...FILLS.zakat], [...FILLS.zakat], [...FILLS.zakat],
 ];
@@ -66,6 +69,14 @@ function litAt(p: number, k: number): number {
   return clamp01((p - arrive(k)) / 0.04);
 }
 
+/* the pasture tile, in the same floor frame as the route */
+const TILE = { u: -150, v: 92, a: 172, b: 184, h: 12 };
+const HERD = [
+  { A: Cow, u: -22, v: -14, s: 1.0, d: 0 },
+  { A: Sheep, u: -62, v: 80, s: 0.98, d: 2.6 },
+  { A: Goat, u: -126, v: 4, s: 1.06, d: 4.4 },
+] as const;
+
 const shadowOf = (k: number) => {
   const [x, y] = SCREEN[k];
   return <motion.ellipse key={`sh${k}`} variants={fade(0.9 + k * 0.05, 0.6)} cx={x + 6} cy={y + 30} rx={44} ry={13} fill="rgba(16,38,31,.07)" />;
@@ -99,7 +110,7 @@ export default function QurbanRouteArt({ className = '' }: { className?: string 
   return (
     <motion.svg
       ref={svg}
-      viewBox="10 20 476 240"
+      viewBox="-142 20 580 350"
       className={`h-auto w-full overflow-visible ${className}`}
       aria-hidden="true"
       initial={reduce ? false : 'hidden'}
@@ -107,19 +118,20 @@ export default function QurbanRouteArt({ className = '' }: { className?: string 
     >
       {/* 1: floor grid, faded at the edges with an opacity mask */}
       <defs>
-        <radialGradient id="qr-fade" cx="248" cy="140" r="250" gradientUnits="userSpaceOnUse">
+        <radialGradient id="qr-fade" cx="190" cy="170" r="320" gradientUnits="userSpaceOnUse">
           <stop offset="0" stopColor="#fff" />
           <stop offset=".6" stopColor="#fff" stopOpacity=".6" />
           <stop offset="1" stopColor="#fff" stopOpacity="0" />
         </radialGradient>
-        <mask id="qr-floor"><rect x="10" y="20" width="476" height="240" fill="url(#qr-fade)" /></mask>
+        <mask id="qr-floor"><rect x="-142" y="20" width="580" height="350" fill="url(#qr-fade)" /></mask>
         <pattern id="qr-grid" width="30" height="30" patternUnits="userSpaceOnUse"><path d="M0 0H30M0 0V30" fill="none" stroke={PAL.line} strokeWidth="1" /></pattern>
       </defs>
       <motion.g variants={fade(0, 0.9)} mask="url(#qr-floor)">
-        <g transform={iso}><rect x="-120" y="-120" width="520" height="520" fill="url(#qr-grid)" /></g>
+        <g transform={iso}><rect x="-330" y="-210" width="730" height="660" fill="url(#qr-grid)" /></g>
       </motion.g>
 
-      {SCREEN.map((_, k) => shadowOf(k))}
+      {SCREEN.map((_, k) => k > 0 && shadowOf(k))}
+      <motion.ellipse variants={fade(0.8, 0.6)} cx={10} cy={222} rx={158} ry={84} fill="rgba(16,38,31,.07)" />
 
       {/* 2: the route, drawn on the floor */}
       <g transform={iso}>
@@ -131,6 +143,7 @@ export default function QurbanRouteArt({ className = '' }: { className?: string 
 
       {/* 3: blocks drop in order along the route; each has a lit twin that fades in as the coin arrives */}
       {NODES.map((n, k) => {
+        if (k === 0) return null; // the pasture stands here
         const [x, y] = corner(n.u, n.v);
         return (
           <motion.g key={n.label} variants={drop(k, 1.2, 0.2, -56)}>
@@ -142,18 +155,39 @@ export default function QurbanRouteArt({ className = '' }: { className?: string 
         );
       })}
 
+      {/* Choose: the pasture and its animals */}
+      <motion.g variants={drop(0, 0.9, 0.2, -40)}>
+        <IsoBox x={floorXY(TILE.u, TILE.v)[0]} y={floorXY(TILE.u, TILE.v)[1]} a={TILE.a} b={TILE.b} h={TILE.h} fills={GRASS} edge={false} />
+        {([[-120, -66], [-20, -78], [12, 20], [-136, 74], [-76, 60], [-100, -30], [10, 78]] as const).map(([u, v]) => {
+          const [x, y] = floorXY(u, v);
+          return <Tuft key={`${u},${v}`} x={x} y={y - TILE.h} />;
+        })}
+      </motion.g>
+      {HERD.map(({ A: Animal, u, v, s, d }, i) => {
+        const [x, y] = floorXY(u, v);
+        return (
+          <motion.g key={i} variants={drop(i, 1.25, 0.18, -50)}>
+            <g transform={`translate(${x} ${y - TILE.h}) scale(${s})`}>
+              <ellipse cx="14" cy="-18" rx="50" ry="18" fill="rgba(16,38,31,.15)" />
+              <Animal live={live} delay={IDLE + d} />
+            </g>
+          </motion.g>
+        );
+      })}
+
       {/* Pay: a coin rests on its block */}
       <Coin cx={corner(STEP, 0)[0]} cy={corner(STEP, 0)[1] - NODES[1].h - A / 2} r={13} color={PAL.accent} variants={pop(2.1)} />
 
       {/* labels: pills above the raised blocks, below the low ones */}
       {NODES.map((n, k) => {
         const [x, y] = SCREEN[k];
-        const w = n.label.length * 9.4 + 26;
-        const yy = UP[k] ? y - A / 2 - n.h - 50 : y + A / 2 + 18;
+        const w = n.label.length * 11.2 + 30;
+        const lx = k === 0 ? floorXY(TILE.u, TILE.v)[0] : x;
+        const yy = k === 0 ? floorXY(TILE.u, TILE.v)[1] + 12 : UP[k] ? y - A / 2 - n.h - 54 : y + A / 2 + 18;
         return (
           <motion.g key={`l${k}`} variants={fade(1.9 + k * 0.12, 0.5)}>
-            <rect x={x - w / 2} y={yy} width={w} height={26} rx={13} fill={PAL.paper} stroke={PAL.line} strokeWidth="1.2" />
-            <text x={x} y={yy + 18} textAnchor="middle" fontSize="16.5" fontWeight="500" fill={PAL.ink}>{n.label}</text>
+            <rect x={lx - w / 2} y={yy} width={w} height={30} rx={15} fill="#fff" stroke="#8FA89B" strokeWidth="1.2" />
+            <text x={lx} y={yy + 21} textAnchor="middle" fontSize="19.5" fontWeight="500" fill={PAL.ink}>{n.label}</text>
           </motion.g>
         );
       })}
