@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, Moon, Star, DollarSign, User, Wallet, Copy, Check, LogOut } from "lucide-react";
+import { Menu, X, DollarSign, User, Wallet, Copy, Check, LogOut, ChevronDown } from "lucide-react";
 import { WalletConnect } from "./wallet-connect";
 import { useCurrency, type Currency } from "@/components/providers/currency-provider";
 import { useAccount, useDisconnect } from "wagmi";
@@ -54,41 +54,74 @@ export function Navigation() {
 		{ href: "/waqf", label: "Waqf" },
 		{ href: "/waqf-farms", label: "Waqf Farms" },
 		{ href: "/qurban", label: "Qurban" },
-		{ href: "/vendor", label: "Vendor" },
 		{ href: "/dashboard", label: "Dashboard" },
+		{ href: "/vendor", label: "Vendor" },
 		{ href: "/dao", label: "DAO" },
 		{ href: "/docs", label: "Docs" },
 		{ href: "/faq", label: "FAQ" },
 	];
 
+	const primaryLinks = navLinks.slice(0, 4);
+	const moreLinks = navLinks.slice(4);
+
+	const linkClass =
+		"text-sm font-medium tracking-tight text-tawf-ink/70 hover:text-tawf-accent transition-colors";
+	const menuItemClass =
+		"block px-4 py-2 text-sm text-tawf-ink/70 hover:text-tawf-accent hover:bg-tawf-stone/60";
+
 	return (
-		<nav className="border-b border-tawf-green/10 bg-tawf-sand/90 backdrop-blur-md sticky top-0 z-50">
+		<nav className="border-b border-tawf-line bg-tawf-stone/90 backdrop-blur-md sticky top-0 z-50" role="navigation" aria-label="Main navigation">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between items-center h-20">
-					<Link href="/" className="flex items-center space-x-3">
-						<div className="relative">
-							<Moon className="h-10 w-10 text-tawf-green crescent-shadow" />
-							<Star className="h-4 w-4 text-tawf-gold absolute -top-1 -right-1" />
-						</div>
-						<span className="text-2xl font-heading font-medium text-tawf-green tracking-wide">QRBN.app</span>
+					<Link href="/" className="flex items-center gap-3" aria-label="Tawf Qurban home">
+						<span className="relative block h-11 w-32 overflow-hidden" aria-hidden="true">
+							<img
+								src="/images/tawflogo.png"
+								alt=""
+								className="absolute left-1/2 top-1/2 h-[170px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 invert mix-blend-multiply"
+							/>
+						</span>
+						<span className="hidden text-lg font-medium tracking-[-0.03em] text-tawf-inkGreen sm:block">
+							Tawf Qurban
+						</span>
 					</Link>
 
-					<div className="hidden md:flex items-center space-x-8">
-						{navLinks.map((link) => (
-							<Link
-								key={link.href}
-								href={link.href}
-								className="text-sm uppercase tracking-widest text-tawf-ink hover:text-tawf-green transition-colors duration-200"
-							>
+					<div className="hidden md:flex items-center gap-8">
+						{primaryLinks.map((link) => (
+							<Link key={link.href} href={link.href} className={linkClass}>
 								{link.label}
 							</Link>
 						))}
 
+						{/* More Dropdown */}
+						<DropdownMenu>
+							<DropdownMenuTrigger asChild>
+								<button
+									className={`${linkClass} flex min-h-11 items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-tawf-accent`}
+								>
+									More
+									<ChevronDown className="size-4" aria-hidden="true" />
+								</button>
+							</DropdownMenuTrigger>
+							<DropdownMenuContent align="end" className="w-48 rounded-xl border-tawf-line bg-tawf-paper py-2 shadow-xl">
+								{moreLinks.map((link) => (
+									<DropdownMenuItem key={link.href} asChild>
+										<Link href={link.href} className={menuItemClass}>
+											{link.label}
+										</Link>
+									</DropdownMenuItem>
+								))}
+							</DropdownMenuContent>
+						</DropdownMenu>
+
 						{/* Wallet Connection and User Profile */}
 						{!isConnected ? (
-							<Button onClick={connectWallet} className="rounded-full bg-tawf-green text-tawf-sand hover:bg-tawf-greenLight px-6 transition-all duration-200">
+							<Button
+								onClick={connectWallet}
+								className="h-10 rounded-xl bg-tawf-accent px-5 text-white hover:bg-tawf-accentDeep"
+							>
 								<Wallet className="h-4 w-4 mr-2" />
-								<span className="text-sm uppercase tracking-wider">Connect</span>
+								<span className="text-sm font-medium">Connect</span>
 							</Button>
 						) : (
 							<DropdownMenu>
@@ -171,7 +204,14 @@ export function Navigation() {
 					</div>
 
 					<div className="md:hidden">
-						<Button variant="ghost" size="icon" onClick={() => setIsOpen(!isOpen)} className="text-tawf-ink hover:bg-tawf-green/10">
+						<Button
+							variant="ghost"
+							size="icon"
+							onClick={() => setIsOpen(!isOpen)}
+							aria-label={isOpen ? "Close menu" : "Open menu"}
+							aria-expanded={isOpen}
+							className="text-tawf-ink hover:bg-tawf-green/10 min-h-11 min-w-11"
+						>
 							{isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
 						</Button>
 					</div>
@@ -183,7 +223,8 @@ export function Navigation() {
 							<Link
 								key={link.href}
 								href={link.href}
-								className="block text-sm uppercase tracking-widest text-tawf-ink hover:text-tawf-green transition-colors"
+								className="block min-h-11 py-3 text-sm font-medium tracking-tight text-tawf-ink/70 hover:text-tawf-accent transition-colors"
+								onClick={() => setIsOpen(false)}
 							>
 								{link.label}
 							</Link>
@@ -191,10 +232,13 @@ export function Navigation() {
 
 						{/* Mobile Wallet Section */}
 						{!isConnected ? (
-							<div className="pt-4">
-								<Button onClick={connectWallet} className="w-full rounded-full bg-tawf-green text-tawf-sand hover:bg-tawf-greenLight px-6">
+							<div className="pt-2">
+								<Button
+									onClick={connectWallet}
+									className="w-full min-h-11 rounded-xl bg-tawf-accent px-5 text-white hover:bg-tawf-accentDeep"
+								>
 									<Wallet className="h-4 w-4 mr-2" />
-									<span className="text-sm uppercase tracking-wider">Connect Wallet</span>
+									<span className="text-sm font-medium">Connect</span>
 								</Button>
 							</div>
 						) : (
