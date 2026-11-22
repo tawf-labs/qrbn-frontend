@@ -6,7 +6,7 @@ export function useTokenBalance() {
 	const { address } = useAccount();
 	const { data: balance = BigInt(0), ...results } = useReadContract((contracts) => ({
 		queryKey: ["walletBalance", address],
-		queryFn: () => contracts?.getUSDTBalance(address!),
+		queryFn: () => contracts?.getUSDCBalance(address!),
 		enabled: Boolean(address),
 	}));
 

@@ -2,7 +2,7 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Next.js](https://img.shields.io/badge/Next.js-14.2-black)](https://nextjs.org/)
-[![Ethereum](https://img.shields.io/badge/Blockchain-Lisk%20Sepolia-blue)](https://lisk.com/)
+[![Ethereum](https://img.shields.io/badge/Blockchain-Arbitrum%20Sepolia-blue)](https://arbitrum.io/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue)](https://www.typescriptlang.org/)
 
 > A decentralized application (DApp) for Islamic finance, enabling transparent Qurban contributions, Zakat payments, and decentralized governance through blockchain technology.
@@ -20,14 +20,14 @@ QRBN is a revolutionary Islamic finance platform built on blockchain technology 
 
 ### 🐐 Qurban Platform
 - **Animal Selection**: Choose from goats or cow shares with detailed information
-- **Transparent Pricing**: Real-time pricing in USDT with Shariah compliance
+- **Transparent Pricing**: Real-time pricing in USDC with Shariah compliance
 - **NFT Certificates**: Receive blockchain-verified certificates of participation
 - **Progress Tracking**: Monitor contribution pools and sacrifice progress
 
 ### 💰 Zakat Management
 - **Smart Calculator**: Automated Zakat calculation based on wealth and nisab threshold
 - **Dual Payment Types**: Support for both Zakat al-Maal and Zakat al-Fitrah
-- **USDT Payments**: Stable cryptocurrency payments for global accessibility
+- **USDC Payments**: Stable cryptocurrency payments for global accessibility
 - **Impact Tracking**: Real-time visibility of Zakat distribution and impact
 
 ### 🏛️ DAO Governance
@@ -40,7 +40,7 @@ QRBN is a revolutionary Islamic finance platform built on blockchain technology 
 
 ### 🔐 Web3 Integration
 - **Multi-Wallet Support**: Connect using various wallet providers
-- **Lisk Sepolia**: Built on scalable and eco-friendly blockchain
+- **Arbitrum Sepolia**: Built on scalable and eco-friendly blockchain
 - **Smart Contracts**: Fully auditable and transparent operations
 - **Real-time Data**: Live blockchain data integration
 
@@ -54,10 +54,10 @@ QRBN is a revolutionary Islamic finance platform built on blockchain technology 
 - **Web3**: Wagmi + Viem for blockchain interactions
 
 ### Blockchain Infrastructure
-- **Network**: Lisk Sepolia Testnet
-- **Wallet Integration**: Xellar Kit for seamless connections
+- **Network**: Arbitrum Sepolia Testnet
+- **Wallet Integration**: wagmi (browser wallets and WalletConnect) for seamless connections
 - **Smart Contracts**: Solidity-based contracts for all operations
-- **Block Explorer**: Lisk Sepolia Blockscout integration
+- **Block Explorer**: Arbiscan integration
 
 ### Smart Contracts
 
@@ -103,9 +103,6 @@ QRBN is a revolutionary Islamic finance platform built on blockchain technology 
    # WalletConnect Project ID (get from https://cloud.walletconnect.com)
    NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_wallet_connect_project_id
 
-   # Xellar Configuration
-   NEXT_PUBLIC_XELLAR_APP_ID=fa0c9416-cbee-4ebc-bda7-03d146734f77
-   NEXT_PUBLIC_XELLAR_ENV=sandbox
    ```
 
 5. **Start development server**
@@ -125,19 +122,19 @@ QRBN is a revolutionary Islamic finance platform built on blockchain technology 
 ## 📱 Application Flow
 
 ### 1. Wallet Connection
-- Users connect their Web3 wallet using Xellar Kit
+- Users connect their Web3 wallet using wagmi (browser wallets and WalletConnect)
 - Support for multiple wallet providers and social logins
-- Automatic network switching to Lisk Sepolia
+- Automatic network switching to Arbitrum Sepolia
 
 ### 2. Dashboard Overview
-- Real-time display of user balances (QRBN, USDT, NFTs)
+- Real-time display of user balances (QRBN, USDC, NFTs)
 - Contribution history and DAO participation status
 - Eligibility checking for representative positions
 
 ### 3. Qurban Participation
 1. **Animal Selection**: Browse available goats and cow shares
 2. **Quality Verification**: View animal details, health certificates
-3. **Payment Processing**: Secure USDT payment through smart contracts
+3. **Payment Processing**: Secure USDC payment through smart contracts
 4. **NFT Certificate**: Receive proof of participation as NFT
 5. **Progress Tracking**: Monitor pool completion and sacrifice scheduling
 
@@ -145,7 +142,7 @@ QRBN is a revolutionary Islamic finance platform built on blockchain technology 
 1. **Wealth Assessment**: Input total wealth for Zakat al-Maal
 2. **Automatic Calculation**: System calculates 2.5% above nisab threshold
 3. **Family Count**: Specify family members for Zakat al-Fitrah
-4. **Payment Execution**: Direct USDT payment to verified recipients
+4. **Payment Execution**: Direct USDC payment to verified recipients
 5. **Impact Reports**: Track distribution and beneficiary impact
 
 ### 5. DAO Participation
@@ -221,9 +218,9 @@ const formatted = contracts.formatTokenAmount(balance)
 ## 🧪 Testing
 
 ### Smart Contract Testing
-- All contracts deployed on Lisk Sepolia testnet
+- All contracts deployed on Arbitrum Sepolia testnet
 - Use testnet tokens for development
-- Block explorer: [https://sepolia-blockscout.lisk.com](https://sepolia-blockscout.lisk.com)
+- Block explorer: [https://sepolia.arbiscan.io](https://sepolia.arbiscan.io)
 
 ### Frontend Testing
 ```bash
@@ -247,8 +244,6 @@ pnpm build
 ### Environment Variables (Production)
 ```env
 NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID=your_production_project_id
-NEXT_PUBLIC_XELLAR_APP_ID=your_production_app_id
-NEXT_PUBLIC_XELLAR_ENV=production
 ```
 
 ### Deployment Platforms
@@ -318,7 +313,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 🙏 Acknowledgments
 
 - **Islamic Finance Scholars**: For guidance on Sharia compliance
-- **Lisk Foundation**: For blockchain infrastructure support
 - **Open Source Community**: For the amazing tools and libraries
 - **Muslim Developer Community**: For feedback and contributions
 
@@ -328,7 +322,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **Documentation**: In Progress
 - **Smart Contracts**: Contract Integration Guide in Progress
 - **Web3 Setup**: [Web3 Integration Guide](docs/WEB3_SETUP.md)
-- **Block Explorer**: [Lisk Sepolia Blockscout](https://sepolia-blockscout.lisk.com)
+- **Block Explorer**: [Arbiscan](https://sepolia.arbiscan.io)
 
 ---
 

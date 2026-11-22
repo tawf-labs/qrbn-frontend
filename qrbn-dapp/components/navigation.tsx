@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import {
 	DropdownMenu,
 	DropdownMenuContent,
@@ -15,19 +14,17 @@ import {
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Menu, X, DollarSign, User, Wallet, Copy, Check, LogOut } from "lucide-react";
-import { WalletConnect } from "./wallet-connect";
-import { useCurrency, type Currency } from "@/components/providers/currency-provider";
+import { CHAIN } from "@/lib/contracts";
+import { useConnectDialog } from "@/components/providers/connect-provider";
 import { useAccount, useDisconnect } from "wagmi";
-import { useConnectModal } from "@xellar/kit";
 import { useTokenBalance } from "@/hooks/use-token-balance";
 
 export function Navigation() {
 	const [isOpen, setIsOpen] = useState(false);
 	const [copied, setCopied] = useState(false);
-	const { currency, setCurrency, formatCurrency } = useCurrency();
 	const { address, isConnected, chain } = useAccount();
 	const { disconnect } = useDisconnect();
-	const { open } = useConnectModal();
+	const { open } = useConnectDialog();
 	const { displayBalance } = useTokenBalance();
 
 	const copyAddress = async () => {
@@ -42,12 +39,9 @@ export function Navigation() {
 		return `${address.slice(0, 6)}...${address.slice(-4)}`;
 	};
 
-	const connectWallet = async () => {
-		try {
-			open();
-		} catch (error) {
-			console.error("Failed to open wallet modal:", error);
-		}
+	const connectWallet = () => {
+		setIsOpen(false);
+		open();
 	};
 
 	const navLinks = [
@@ -116,7 +110,7 @@ export function Navigation() {
 											<Wallet className="h-4 w-4 text-tawf-green" />
 											<span className="text-sm">{formatAddress(address!)}</span>
 										</div>
-										{copied ? <Check className="h-4 w-4 text-tawf-green" /> : <Copy className="h-4 w-4 text-tawf-muted" />}
+										{copied ? <Check className="h-4 w-4 text-tawf-green" /> : <Copy className="h-4 w-4 text-tawf-body" />}
 									</DropdownMenuItem>
 
 									{/* Chain Information */}
@@ -125,7 +119,7 @@ export function Navigation() {
 											<div className="w-2 h-2 rounded-full bg-tawf-green"></div>
 											<span className="text-sm">Network</span>
 										</div>
-										<Badge className="bg-tawf-green/10 text-tawf-green border-0">{chain?.name || "Lisk Sepolia"}</Badge>
+										<Badge className="bg-tawf-green/10 text-tawf-green border-0">{chain?.name ?? `Switch to ${CHAIN.name}`}</Badge>
 									</DropdownMenuItem>
 
 									{/* Wallet Balance */}
@@ -134,28 +128,8 @@ export function Navigation() {
 											<DollarSign className="h-4 w-4 text-tawf-gold" />
 											<span className="text-sm">Balance</span>
 										</div>
-										<span className="text-tawf-green font-semibold">{displayBalance} USDT</span>
+										<span className="text-tawf-green font-semibold">{displayBalance} USDC</span>
 									</DropdownMenuItem>
-
-									<DropdownMenuSeparator className="bg-tawf-green/10" />
-
-									{/* Currency Selection */}
-									<DropdownMenuLabel className="text-tawf-green font-heading">Currency Settings</DropdownMenuLabel>
-									<div className="px-2 py-2">
-										<Select value={currency} onValueChange={(value: Currency) => setCurrency(value)}>
-											<SelectTrigger className="w-full bg-tawf-sand border-tawf-green/20 text-tawf-ink text-sm">
-												<SelectValue />
-											</SelectTrigger>
-											<SelectContent className="bg-white border-tawf-green/10">
-												<SelectItem value="IDRX" className="text-tawf-ink hover:bg-tawf-sand">
-													IDRX (Indonesian Rupiah)
-												</SelectItem>
-												<SelectItem value="USDT" className="text-tawf-ink hover:bg-tawf-sand">
-													USDT (US Dollar Tether)
-												</SelectItem>
-											</SelectContent>
-										</Select>
-									</div>
 
 									<DropdownMenuSeparator className="bg-tawf-green/10" />
 
@@ -215,7 +189,7 @@ export function Navigation() {
 								{/* Mobile Wallet Info */}
 								<div className="space-y-3">
 									<div className="flex items-center justify-between">
-										<span className="text-sm text-tawf-muted">Wallet Address</span>
+										<span className="text-sm text-tawf-body">Wallet Address</span>
 										<div className="flex items-center space-x-2">
 											<span className="text-sm text-tawf-ink">{formatAddress(address!)}</span>
 											<Button
@@ -230,32 +204,14 @@ export function Navigation() {
 									</div>
 
 									<div className="flex items-center justify-between">
-										<span className="text-sm text-tawf-muted">Network</span>
-										<Badge className="bg-tawf-green/10 text-tawf-green border-0">{chain?.name || "Lisk Sepolia"}</Badge>
+										<span className="text-sm text-tawf-body">Network</span>
+										<Badge className="bg-tawf-green/10 text-tawf-green border-0">{chain?.name ?? `Switch to ${CHAIN.name}`}</Badge>
 									</div>
 
 									<div className="flex items-center justify-between">
-										<span className="text-sm text-tawf-muted">Balance</span>
-										<span className="text-sm text-tawf-green font-semibold">{displayBalance} USDT</span>
+										<span className="text-sm text-tawf-body">Balance</span>
+										<span className="text-sm text-tawf-green font-semibold">{displayBalance} USDC</span>
 									</div>
-								</div>
-
-								{/* Mobile Currency Selector */}
-								<div>
-									<label className="text-sm text-tawf-muted mb-2 block">Currency</label>
-									<Select value={currency} onValueChange={(value: Currency) => setCurrency(value)}>
-										<SelectTrigger className="w-full bg-tawf-sand border-tawf-green/20 text-tawf-ink text-sm">
-											<SelectValue />
-										</SelectTrigger>
-										<SelectContent className="bg-white border-tawf-green/10">
-											<SelectItem value="IDRX" className="text-tawf-ink hover:bg-tawf-sand">
-												IDRX (Indonesian Rupiah)
-											</SelectItem>
-											<SelectItem value="USDT" className="text-tawf-ink hover:bg-tawf-sand">
-												USDT (US Dollar Tether)
-											</SelectItem>
-										</SelectContent>
-									</Select>
 								</div>
 
 								{/* Mobile Disconnect */}

@@ -4,7 +4,6 @@ import { Inter, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 import { Navigation } from "@/components/navigation";
 import { WalletProvider } from "@/components/providers/web3-provider";
-import { CurrencyProvider } from "@/components/providers/currency-provider";
 import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({
@@ -21,7 +20,7 @@ const cormorant = Cormorant_Garamond({
 
 export const metadata: Metadata = {
 	title: "Tawf Qurban | Goats, sheep and cows",
-	description: "Choose a goat, a sheep or a share of a cow, and follow your qurban from payment to proof. A preview, not taking payments yet.",
+	description: "Choose a goat, a sheep or a share of a cow, and follow your qurban from payment to proof. A preview on Arbitrum Sepolia with test USDC.",
 	icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
 };
 
@@ -30,13 +29,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 		<html lang="en" className={`${inter.variable} ${cormorant.variable}`}>
 			<body className="font-sans antialiased">
 				<WalletProvider>
-					<CurrencyProvider>
 						<div className="min-h-screen bg-tawf-sand text-tawf-ink">
 							<Navigation />
 							<main>{children}</main>
 						</div>
 						<Toaster />
-					</CurrencyProvider>
 				</WalletProvider>
 			</body>
 		</html>

@@ -26,19 +26,19 @@ const faqData: FAQItem[] = [
   {
     id: "what-is-qrbn",
     question: "What is Tawf Qurban?",
-    answer: "Tawf Qurban is Tawf Foundation's blockchain-based qurban project. You choose a goat, a sheep or a share of a cow. It is a preview and is not taking payments yet.",
+    answer: "Tawf Qurban is Tawf Foundation's blockchain-based qurban project. You choose a goat, a sheep or a share of a cow. It is a preview on Arbitrum Sepolia and uses test USDC only.",
     category: "Getting Started"
   },
   {
     id: "how-to-connect-wallet",
     question: "How do I connect my wallet?",
-    answer: "Click the 'Connect' button in the top navigation. We support MetaMask, WalletConnect, and other popular Web3 wallets. Make sure you're connected to the Lisk Sepolia network to interact with our smart contracts.",
+    answer: "Click the 'Connect' button in the top navigation. Choose MetaMask or another wallet installed in your browser. Make sure you're connected to the Arbitrum Sepolia network to interact with our smart contracts.",
     category: "Getting Started"
   },
   {
     id: "supported-networks",
     question: "Which blockchain networks are supported?",
-    answer: "Tawf Qurban was built on the Lisk Sepolia test network. It is a preview and is not taking payments yet.",
+    answer: "Tawf Qurban runs on Arbitrum Sepolia, a test network. It moved there because Lisk shut down its network. Payments use test USDC only.",
     category: "Getting Started"
   },
 
@@ -60,19 +60,19 @@ const faqData: FAQItem[] = [
   {
     id: "transaction-failed",
     question: "What should I do if my transaction fails?",
-    answer: "First, check if you have sufficient USDT and ETH for gas fees. Ensure you're on the correct network (Lisk Sepolia). If the issue persists, try increasing gas fees or contact our support team with the transaction hash for assistance.",
+    answer: "First, check if you have enough test USDC and test ETH for gas fees. Ensure you're on the correct network (Arbitrum Sepolia). If the issue persists, try again, or contact us with the transaction hash.",
     category: "Technical Support"
   },
   {
     id: "wallet-issues",
     question: "I'm having trouble with my wallet connection",
-    answer: "Try refreshing the page, clearing your browser cache, or disconnecting and reconnecting your wallet. Make sure your wallet is set to the Lisk Sepolia network. If using MetaMask, you may need to add the Lisk Sepolia network manually.",
+    answer: "Try refreshing the page, clearing your browser cache, or disconnecting and reconnecting your wallet. Make sure your wallet is set to the Arbitrum Sepolia network. If using MetaMask, you may need to add the Arbitrum Sepolia network manually.",
     category: "Technical Support"
   },
   {
     id: "missing-tokens",
     question: "My NFT certificate is not showing in my wallet",
-    answer: "Check that you are connected to the Lisk Sepolia network and to the wallet you used. Some wallets need the NFT contract added manually through their import option.",
+    answer: "Check that you are connected to the Arbitrum Sepolia network and to the wallet you used. Some wallets need the NFT contract added manually through their import option.",
     category: "Technical Support"
   }
 ]
@@ -99,7 +99,7 @@ export default function FAQPage() {
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-heading font-medium text-tawf-green mb-4">Frequently Asked Questions</h1>
           <p className="text-tawf-body max-w-2xl mx-auto">
-            Everything you need to know about Tawf Qurban. Tawf Qurban is a preview and is not taking payments yet.
+            Everything you need to know about Tawf Qurban. Tawf Qurban is a preview and uses test USDC only.
           </p>
         </div>
 
