@@ -20,7 +20,7 @@ const steps = [
 	{
 		step: "03",
 		title: "Sacrifice",
-		desc: "Your selected animal is sacrificed for Eid al-Adha, with health verified and local sourced animals.",
+		desc: "Your selected animal is sacrificed for Eid al-Adha.",
 		icon: <Scissors className="w-6 h-6" />,
 	},
 	{
