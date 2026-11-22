@@ -20,9 +20,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-	title: "QRBN.app - Islamic Finance Donation Platform",
-	description: "Transparent Islamic donations with blockchain technology",
-	generator: "v0.dev",
+	title: "Tawf Qurban | Qurban and Waqf",
+	description: "Take part in qurban and waqf and follow each step. Running on the Lisk Sepolia testnet.",
+	icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
