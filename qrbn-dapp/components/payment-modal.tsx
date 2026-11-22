@@ -9,9 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { Wallet, ArrowRight, CheckCircle, Clock, ExternalLink, Loader2 } from "lucide-react";
 import { useContracts } from "@/hooks/use-contracts";
 import { useAccount } from "wagmi";
@@ -36,12 +33,6 @@ export function PaymentModal({ amount, type, animalId, title, children }: Paymen
 	const [txHash, setTxHash] = useState("");
 	const [processingMessage, setProcessingMessage] = useState("Processing transaction...");
 
-	// Tip states
-	const [includeTip, setIncludeTip] = useState(true); // Default checked (2.5%)
-	const [tipType, setTipType] = useState<"percentage" | "custom">("percentage");
-	const [tipPercentage, setTipPercentage] = useState(2.5); // Default 2.5%
-	const [customTipAmount, setCustomTipAmount] = useState("");
-
 	const { balance, displayBalance } = useTokenBalance();
 	const { currency, exchangeRate } = useCurrency();
 	const { toast } = useToast();
@@ -64,20 +55,7 @@ export function PaymentModal({ amount, type, animalId, title, children }: Paymen
 	};
 
 	const usdAmount = getUSDAmount();
-
-	// Calculate tip amount (only for zakat)
-	const calculateTipAmount = () => {
-		if (!includeTip || !type.startsWith("zakat-")) return 0;
-
-		if (tipType === "percentage") {
-			return (usdAmount * tipPercentage) / 100;
-		} else {
-			return parseFloat(customTipAmount) || 0;
-		}
-	};
-
-	const tipAmount = calculateTipAmount();
-	const totalAmount = usdAmount + tipAmount;
+	const totalAmount = usdAmount;
 
 	const onContinuePayment = () => {
 		const requiredBalance = parseUnits(totalAmount.toString(), 6);
@@ -85,7 +63,7 @@ export function PaymentModal({ amount, type, animalId, title, children }: Paymen
 			toast({
 				variant: "destructive",
 				title: "Error",
-				description: "You don't have enough balance for the total amount including tip",
+				description: "You don't have enough balance for this amount",
 			});
 			return;
 		}
@@ -116,22 +94,8 @@ export function PaymentModal({ amount, type, animalId, title, children }: Paymen
 			console.log("- USD amount (wei):", usdAmountInWei.toString());
 			console.log("- USD amount (USDT):", usdAmount);
 
-			let hash: `0x${string}`;
-
-			if (type === "qurban") {
-				setProcessingMessage("Processing Qurban purchase...");
-				hash = await contracts.purchaseAnimalShares(animalId!, BigInt(1), usdAmountInWei);
-			} else {
-				// For zakat payments - the donateZakat method already handles approve internally
-				setProcessingMessage("Processing Zakat donation...");
-				const zakatType = type === "zakat-fitrah" ? "fitrah" : "maal";
-				hash = await contracts.donateZakat(
-					usdAmount, // Use USD amount directly
-					zakatType,
-					tipAmount, // Use calculated tip amount
-					"" // donorMessage - empty for now
-				);
-			}
+			setProcessingMessage("Processing Qurban purchase...");
+			const hash = await contracts.purchaseAnimalShares(animalId!, BigInt(1), usdAmountInWei);
 
 			setTxHash(hash);
 			setPaymentStep("success");
@@ -252,18 +216,10 @@ export function PaymentModal({ amount, type, animalId, title, children }: Paymen
 									<span className="text-[#f0fdf4]/70">Amount:</span>
 									<span className="text-[#d1b86a]">{usdAmount.toFixed(2)} USDT</span>
 								</div>
-								{includeTip && tipAmount > 0 && (
-									<div className="flex justify-between">
-										<span className="text-[#f0fdf4]/70">Platform Tip:</span>
-										<span className="text-[#d1b86a]">+{tipAmount.toFixed(2)} USDT</span>
-									</div>
-								)}
-								{!type.startsWith("zakat-") && (
-									<div className="flex justify-between">
-										<span className="text-[#f0fdf4]/70">2.5% Fee (Included):</span>
-										<span className="text-[#d1b86a]">{usdAmount * 0.025} USDT</span>
-									</div>
-								)}
+								<div className="flex justify-between">
+									<span className="text-[#f0fdf4]/70">2.5% Fee (Included):</span>
+									<span className="text-[#d1b86a]">{usdAmount * 0.025} USDT</span>
+								</div>
 								<div className="flex justify-between">
 									<span className="text-[#f0fdf4]/70">Network:</span>
 									<Badge className="bg-[#14532d] text-[#d1b86a]">Lisk Sepolia</Badge>
@@ -279,79 +235,6 @@ export function PaymentModal({ amount, type, animalId, title, children }: Paymen
 								</div>
 							</CardContent>
 						</Card>
-
-						{/* Platform Tip Configuration - Only for Zakat */}
-						{type.startsWith("zakat-") && (
-							<Card className="bg-[#14532d]/30 border-[#14532d]">
-								<CardContent className="p-4 space-y-4">
-									<div className="flex items-center space-x-2">
-										<Checkbox
-											id="include-tip"
-											checked={includeTip}
-											onCheckedChange={(checked) => setIncludeTip(!!checked)}
-											className="border-[#f0fdf4]/30 data-[state=checked]:bg-[#d1b86a] data-[state=checked]:border-[#d1b86a]"
-										/>
-										<Label htmlFor="include-tip" className="text-[#f0fdf4] font-medium">
-											Support platform development
-										</Label>
-									</div>
-
-									{includeTip && (
-										<div className="space-y-3 ml-6">
-											<div className="flex items-center space-x-4">
-												<div className="flex items-center space-x-2">
-													<input
-														type="radio"
-														id="tip-percentage"
-														name="tip-type"
-														checked={tipType === "percentage"}
-														onChange={() => setTipType("percentage")}
-														className="text-[#d1b86a] focus:ring-[#d1b86a]"
-													/>
-													<Label htmlFor="tip-percentage" className="text-[#f0fdf4]/80 text-sm">
-														2.5% ({((usdAmount * 2.5) / 100).toFixed(2)} USDT)
-													</Label>
-												</div>
-											</div>
-
-											<div className="flex items-center space-x-4">
-												<div className="flex items-center space-x-2">
-													<input
-														type="radio"
-														id="tip-custom"
-														name="tip-type"
-														checked={tipType === "custom"}
-														onChange={() => setTipType("custom")}
-														className="text-[#d1b86a] focus:ring-[#d1b86a]"
-													/>
-													<Label htmlFor="tip-custom" className="text-[#f0fdf4]/80 text-sm">
-														Custom amount
-													</Label>
-												</div>
-												{tipType === "custom" && (
-													<div className="flex items-center space-x-2">
-														<Input
-															type="number"
-															placeholder="0.00"
-															value={customTipAmount}
-															onChange={(e) => setCustomTipAmount(e.target.value)}
-															className="w-20 h-8 bg-[#0f2419] border-[#14532d] text-[#f0fdf4] text-sm"
-															min="0"
-															step="0.01"
-														/>
-														<span className="text-[#f0fdf4]/70 text-sm">USDT</span>
-													</div>
-												)}
-											</div>
-
-											<div className="text-xs text-[#f0fdf4]/60">
-												Tips help us maintain and improve the platform. Thank you for your support! 💚
-											</div>
-										</div>
-									)}
-								</CardContent>
-							</Card>
-						)}
 
 						<div className="flex space-x-3">
 							<Button

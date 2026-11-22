@@ -6,7 +6,7 @@ import { motion, useReducedMotion } from 'motion/react';
 /* The hero's isometric floor as a backdrop: hairline grid, faded out at the edges with an opacity mask
  * (white-to-transparent mask, not a colour gradient). It drifts very slowly so a section never feels static. */
 export default function IsoGrid({
-  className = '', color = '#CED8D1', opacity = 1, cx = '50%', cy = '60%', r = '55%', drift = true,
+  className = '', color = '#C9D5CD', opacity = 1, cx = '50%', cy = '60%', r = '55%', drift = true,
 }: {
   className?: string; color?: string; opacity?: number; cx?: string; cy?: string; r?: string; drift?: boolean;
 }) {

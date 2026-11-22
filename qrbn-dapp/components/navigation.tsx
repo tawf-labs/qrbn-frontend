@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
-import { Menu, X, DollarSign, User, Wallet, Copy, Check, LogOut, ChevronDown } from "lucide-react";
+import { Menu, X, DollarSign, User, Wallet, Copy, Check, LogOut } from "lucide-react";
 import { WalletConnect } from "./wallet-connect";
 import { useCurrency, type Currency } from "@/components/providers/currency-provider";
 import { useAccount, useDisconnect } from "wagmi";
@@ -51,68 +51,37 @@ export function Navigation() {
 	};
 
 	const navLinks = [
-		{ href: "/waqf", label: "Waqf" },
-		{ href: "/waqf-farms", label: "Waqf Farms" },
-		{ href: "/qurban", label: "Qurban" },
-		{ href: "/dashboard", label: "Dashboard" },
-		{ href: "/vendor", label: "Vendor" },
-		{ href: "/dao", label: "DAO" },
+		{ href: "/#animals", label: "Animals" },
+		{ href: "/qurban", label: "Browse" },
 		{ href: "/docs", label: "Docs" },
 		{ href: "/faq", label: "FAQ" },
 	];
 
-	const primaryLinks = navLinks.slice(0, 4);
-	const moreLinks = navLinks.slice(4);
 
 	const linkClass =
-		"text-sm font-medium tracking-tight text-tawf-ink/70 hover:text-tawf-accent transition-colors";
-	const menuItemClass =
-		"block px-4 py-2 text-sm text-tawf-ink/70 hover:text-tawf-accent hover:bg-tawf-stone/60";
+		"text-sm font-medium tracking-tight text-tawf-ink/85 hover:text-tawf-accent transition-colors";
 
 	return (
-		<nav className="border-b border-tawf-line bg-tawf-stone/90 backdrop-blur-md sticky top-0 z-50" role="navigation" aria-label="Main navigation">
+		<nav className="border-b border-tawf-edge bg-tawf-stone/90 backdrop-blur-md sticky top-0 z-50" role="navigation" aria-label="Main navigation">
 			<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="flex justify-between items-center h-20">
 					<Link href="/" className="flex items-center gap-3" aria-label="Tawf Qurban home">
 						<span className="relative block h-11 w-32 overflow-hidden" aria-hidden="true">
 							<img
-								src="/images/tawflogo.png"
+								src="/images/tawfmark.png"
 								alt=""
-								className="absolute left-1/2 top-1/2 h-[170px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 invert mix-blend-multiply"
+								className="absolute left-1/2 top-1/2 h-[170px] w-auto max-w-none -translate-x-1/2 -translate-y-1/2 invert"
 							/>
 						</span>
-						<span className="hidden text-lg font-medium tracking-[-0.03em] text-tawf-inkGreen sm:block">
-							Tawf Qurban
-						</span>
+						<span className="text-lg font-medium tracking-[-0.03em] text-tawf-inkGreen">Qurban</span>
 					</Link>
 
 					<div className="hidden md:flex items-center gap-8">
-						{primaryLinks.map((link) => (
+						{navLinks.map((link) => (
 							<Link key={link.href} href={link.href} className={linkClass}>
 								{link.label}
 							</Link>
 						))}
-
-						{/* More Dropdown */}
-						<DropdownMenu>
-							<DropdownMenuTrigger asChild>
-								<button
-									className={`${linkClass} flex min-h-11 items-center gap-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-tawf-accent`}
-								>
-									More
-									<ChevronDown className="size-4" aria-hidden="true" />
-								</button>
-							</DropdownMenuTrigger>
-							<DropdownMenuContent align="end" className="w-48 rounded-xl border-tawf-line bg-tawf-paper py-2 shadow-xl">
-								{moreLinks.map((link) => (
-									<DropdownMenuItem key={link.href} asChild>
-										<Link href={link.href} className={menuItemClass}>
-											{link.label}
-										</Link>
-									</DropdownMenuItem>
-								))}
-							</DropdownMenuContent>
-						</DropdownMenu>
 
 						{/* Wallet Connection and User Profile */}
 						{!isConnected ? (
@@ -223,7 +192,7 @@ export function Navigation() {
 							<Link
 								key={link.href}
 								href={link.href}
-								className="block min-h-11 py-3 text-sm font-medium tracking-tight text-tawf-ink/70 hover:text-tawf-accent transition-colors"
+								className="block min-h-11 py-3 text-sm font-medium tracking-tight text-tawf-ink/85 hover:text-tawf-accent transition-colors"
 								onClick={() => setIsOpen(false)}
 							>
 								{link.label}

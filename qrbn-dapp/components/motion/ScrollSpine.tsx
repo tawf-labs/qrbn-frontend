@@ -6,7 +6,7 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform, type Moti
 /* A thin line that fills as you scroll through its container — the "drawn path" of the hero, tied to scroll.
  * `children` receives the progress MotionValue (0..1) so steps can light up as the line reaches them. */
 export default function ScrollSpine({
-  children, className = '', color = '#1F6B54', track = '#CED8D1', orientation = 'vertical', lineClassName = '',
+  children, className = '', color = '#1F6B54', track = '#AEBFB5', orientation = 'vertical', lineClassName = '',
   offset = ['start 75%', 'end 55%'],
 }: {
   children: (progress: MotionValue<number>) => React.ReactNode;

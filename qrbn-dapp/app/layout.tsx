@@ -20,8 +20,8 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-	title: "Tawf Qurban | Qurban and Waqf",
-	description: "Take part in qurban and waqf and follow each step. Running on the Lisk Sepolia testnet.",
+	title: "Tawf Qurban | Goats, sheep and cows",
+	description: "Choose a goat, a sheep or a share of a cow, and follow your qurban from payment to proof. A preview, not taking payments yet.",
 	icons: { icon: "/favicon.png", apple: "/apple-touch-icon.png" },
 };
 

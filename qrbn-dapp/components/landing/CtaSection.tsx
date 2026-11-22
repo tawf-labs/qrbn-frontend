@@ -3,23 +3,24 @@
 import Link from "next/link";
 import { motion, useReducedMotion } from "motion/react";
 import { ArrowRight, FileText } from "lucide-react";
+import HerdArt from "./art/HerdArt";
 import { CONTAINER, Magnetic, Reveal, RevealText, TurningPattern } from "@/components/motion";
 
 export default function CtaSection() {
 	const reduce = useReducedMotion();
 
 	return (
-		<section className="relative overflow-hidden border-t border-tawf-line bg-tawf-paper py-16 md:py-24">
+		<section className="relative overflow-hidden border-t border-tawf-edge bg-tawf-paper pt-16 md:pt-24">
 			<TurningPattern />
 			<div className={`${CONTAINER} relative z-10`}>
 				<Reveal className="mx-auto max-w-[46em] text-center">
 					<RevealText
 						as="h2"
-						text="Ready to Make a Difference?"
+						text="Ready to choose your qurban?"
 						className="font-sans text-[clamp(30px,4.2vw,46px)] font-medium leading-[1.06] tracking-[-0.03em] text-tawf-inkGreen"
 					/>
-					<p className="mx-auto mt-5 max-w-[34em] text-[clamp(16px,1.4vw,18.5px)] leading-[1.6] text-tawf-mutedGreen">
-						Support sustainable Qurban farms through blockchain-powered Waqf, and follow it from payment to proof.
+					<p className="mx-auto mt-5 max-w-[34em] text-[clamp(16px,1.4vw,18.5px)] leading-[1.6] text-tawf-body">
+						See the goats, sheep and cows, and how each qurban is followed from payment to proof.
 					</p>
 
 					<motion.div
@@ -35,7 +36,7 @@ export default function CtaSection() {
 									href="/qurban"
 									className="group inline-flex h-12 items-center gap-2.5 rounded-xl bg-tawf-accent px-6 text-[15px] font-medium text-white shadow-sm shadow-tawf-accent/25 transition-colors hover:bg-tawf-accentDeep focus:outline-none focus-visible:ring-2 focus-visible:ring-tawf-accent focus-visible:ring-offset-2 focus-visible:ring-offset-tawf-paper"
 								>
-									<span>Get Started</span>
+									<span>View the animals</span>
 									<ArrowRight className="size-4 transition-transform duration-200 group-hover:translate-x-1" />
 								</Link>
 							</motion.div>
@@ -44,15 +45,16 @@ export default function CtaSection() {
 						<motion.div whileHover={reduce ? undefined : { y: -2, scale: 1.015 }} whileTap={reduce ? undefined : { scale: 0.98 }}>
 							<Link
 								href="/docs"
-								className="group inline-flex h-12 items-center gap-2.5 rounded-xl border border-tawf-line bg-white px-6 text-[15px] font-medium text-tawf-inkGreen transition-colors hover:border-tawf-inkGreen focus:outline-none focus-visible:ring-2 focus-visible:ring-tawf-accent"
+								className="group inline-flex h-12 items-center gap-2.5 rounded-xl border border-tawf-edge bg-white px-6 text-[15px] font-medium text-tawf-inkGreen transition-colors hover:border-tawf-inkGreen focus:outline-none focus-visible:ring-2 focus-visible:ring-tawf-accent"
 							>
-								<FileText className="size-4 text-tawf-mutedGreen transition-colors group-hover:text-tawf-inkGreen" />
-								<span>Read Documentation</span>
+								<FileText className="size-4 text-tawf-body transition-colors group-hover:text-tawf-inkGreen" />
+								<span>Read the docs</span>
 							</Link>
 						</motion.div>
 					</motion.div>
 				</Reveal>
 			</div>
+			<HerdArt className="relative z-10 mt-12 md:mt-16" />
 		</section>
 	);
 }
