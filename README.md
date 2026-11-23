@@ -324,7 +324,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🔗 Links
 
-- **Live Demo**: [https://qrbn.app](https://qrbn.app)
+- **Live Demo**: Coming soon
 - **Documentation**: In Progress
 - **Smart Contracts**: Contract Integration Guide in Progress
 - **Web3 Setup**: [Web3 Integration Guide](docs/WEB3_SETUP.md)
