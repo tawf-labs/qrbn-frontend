@@ -7,8 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Circle, Wallet, Award, MapPin, ScrollText, Sparkles } from "lucide-react";
 import { PaymentModal } from "@/components/payment-modal";
 import { useReadContract } from "@/hooks/use-read-contracts";
-import { useCurrency } from "@/components/providers/currency-provider";
-import { cn, displayTokenPrice, isAnimalSold } from "@/lib/utils";
+import { cn, formatUsdc, isAnimalSold } from "@/lib/utils";
 import { Skeleton } from "@/components/ui/skeleton";
 
 const steps = [
@@ -22,7 +21,6 @@ type Category = "goats" | "sheeps" | "cows";
 export default function QurbanPage() {
   const [selectedAnimal, setSelectedAnimal] = useState<bigint>();
   const [selectedCategory, setSelectedCategory] = useState<Category>("goats");
-  const { formatCurrency, convertToSelectedCurrency } = useCurrency();
   const { data: qurbanAnimals, isLoading } = useReadContract((contracts) => ({
     queryKey: ["qurbanAnimals"],
     queryFn: () => contracts?.getQurbanAnimals(),
@@ -47,16 +45,16 @@ export default function QurbanPage() {
         <div className="text-center mb-12">
           <span className="text-sm uppercase tracking-widest text-tawf-honey font-medium">Eid al-Adha Sacrifice</span>
           <h1 className="text-4xl md:text-5xl font-heading font-medium mt-4 mb-4 text-tawf-green">
-            Qurban Donation
+            Choose your qurban
           </h1>
           <p className="text-tawf-body max-w-2xl mx-auto">
-            Choose a goat, a sheep or a share of a cow. Tawf Qurban is a preview and is not taking payments yet.
+            Choose a goat, a sheep or a share of a cow. This is a preview on Arbitrum Sepolia: the animals are samples and payments use test USDC only.
           </p>
         </div>
 
         {/* Stepper */}
         <div className="mb-12">
-          <div className="flex items-center justify-center">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-0">
             {steps.map((step, index) => (
               <div key={step.id} className="flex items-center">
                 <div className="flex items-center">
@@ -74,7 +72,7 @@ export default function QurbanPage() {
                   }`}>{step.title}</span>
                 </div>
                 {index < steps.length - 1 && (
-                  <div className={`w-20 h-0.5 mx-4 ${step.completed ? "bg-tawf-green" : "bg-tawf-muted/20"}`} />
+                  <div className={`hidden sm:block w-8 md:w-20 h-0.5 mx-4 ${step.completed ? "bg-tawf-green" : "bg-tawf-muted/20"}`} />
                 )}
               </div>
             ))}
@@ -117,7 +115,7 @@ export default function QurbanPage() {
               </div>
             ) : !qurbanAnimals ? (
               <div className="rounded-2xl border border-tawf-green/10 bg-white p-6 text-tawf-ink" role="status">
-                Animals can&apos;t load right now. Tawf Qurban is a preview and is not taking payments yet.
+                Animals can&apos;t load right now. Please try again in a moment.
               </div>
             ) : (animalsOfCategory?.length ?? 0) === 0 ? (
               <div className="rounded-2xl border border-tawf-green/10 bg-white p-6 text-tawf-ink">
@@ -156,9 +154,7 @@ export default function QurbanPage() {
                           </div>
 
                           <div className="text-2xl font-heading font-bold text-tawf-honey">
-                            {formatCurrency(
-                              convertToSelectedCurrency(parseFloat(displayTokenPrice(animal.pricePerShare)))
-                            )}
+                            {formatUsdc(animal.pricePerShare)}
                           </div>
 
                           <div className="space-y-2 text-sm">
@@ -172,7 +168,7 @@ export default function QurbanPage() {
                               {animal.totalShares > 1 ? "s" : ""} sold
                             </div>
                             <div className="text-tawf-body">
-                              Age: {animal.age} • Weight: {animal.weight}
+                              Age: {animal.age} years • Weight: {animal.weight} kg
                             </div>
                           </div>
 
@@ -208,11 +204,11 @@ export default function QurbanPage() {
                           <div className="grid grid-cols-2 gap-4 text-sm">
                             <div className="bg-tawf-sand/50 rounded-xl p-3">
                               <span className="text-tawf-body text-xs block mb-1">Age</span>
-                              <div className="font-heading font-medium text-tawf-ink">{selectedAnimalData?.age}</div>
+                              <div className="font-heading font-medium text-tawf-ink">{selectedAnimalData?.age} years</div>
                             </div>
                             <div className="bg-tawf-sand/50 rounded-xl p-3">
                               <span className="text-tawf-body text-xs block mb-1">Weight</span>
-                              <div className="font-heading font-medium text-tawf-ink">{selectedAnimalData?.weight}</div>
+                              <div className="font-heading font-medium text-tawf-ink">{selectedAnimalData?.weight} kg</div>
                             </div>
                             <div className="bg-tawf-sand/50 rounded-xl p-3">
                               <span className="text-tawf-body text-xs block mb-1">Location</span>
@@ -228,15 +224,12 @@ export default function QurbanPage() {
                         <div>
                           <div className="text-sm text-tawf-body mb-1">Total Amount</div>
                           <div className="text-2xl font-heading font-bold text-tawf-honey">
-                            {formatCurrency(
-                              convertToSelectedCurrency(parseFloat(displayTokenPrice(selectedAnimalData.pricePerShare)))
-                            )}
+                            {formatUsdc(selectedAnimalData.pricePerShare)}
                           </div>
                         </div>
 
                         <PaymentModal
                           amount={selectedAnimalData.pricePerShare}
-                          type="qurban"
                           animalId={selectedAnimalData.id}
                           title={`Qurban - ${selectedAnimalData.name}`}
                         >

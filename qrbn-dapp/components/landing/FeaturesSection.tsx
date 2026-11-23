@@ -25,8 +25,8 @@ const features = [
 	},
 	{
 		icon: Wallet,
-		title: "Two currencies",
-		description: "Prices in IDRX and USDT",
+		title: "Paid in USDC",
+		description: "Priced and paid in USDC. The preview uses test USDC",
 		label: "Flexible",
 	},
 ];

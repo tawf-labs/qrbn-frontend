@@ -19,7 +19,7 @@ const steps = [
 	{
 		step: "02",
 		title: "Pay",
-		desc: "You pay for it in IDRX or USDT. Payments are not open yet.",
+		desc: "You pay for it in USDC. The preview uses test USDC only.",
 		icon: <Wallet className="w-6 h-6" />,
 	},
 	{

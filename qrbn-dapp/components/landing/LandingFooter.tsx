@@ -30,7 +30,7 @@ export default function LandingFooter() {
 						</span>
 						<h3 className="sr-only">Tawf Qurban</h3>
 						<p className="max-w-sm text-sm leading-relaxed mt-3">
-							Blockchain-based qurban by Tawf Foundation. A preview, not taking payments yet.
+							Blockchain-based qurban by Tawf Foundation. A preview on Arbitrum Sepolia, test USDC only.
 						</p>
 					</div>
 

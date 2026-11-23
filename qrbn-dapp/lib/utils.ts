@@ -9,8 +9,13 @@ export function displayTokenPrice(price: bigint, decimals = 6) {
 	return (Number(price) / 10 ** decimals).toLocaleString();
 }
 
+export function formatUsdc(amount: bigint) {
+	return `${displayTokenPrice(amount)} USDC`;
+}
+
+// 2 sold, 3 sacrificed
 export function isAnimalSold(status: number) {
-	return status == 2;
+	return status === 2 || status === 3;
 }
 
 export function formatIPFSUrl(url: string): string {

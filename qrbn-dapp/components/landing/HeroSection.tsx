@@ -31,7 +31,7 @@ export default function HeroSection() {
 							className="mb-5 inline-flex items-center gap-2.5 text-sm font-medium text-tawf-accent"
 						>
 							<span className="size-[7px] rounded-full bg-tawf-accent" aria-hidden="true" />
-							Preview, not taking payments yet
+							Preview on Arbitrum Sepolia, test USDC only
 						</motion.p>
 
 						<motion.h1
